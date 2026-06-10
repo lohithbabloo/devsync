@@ -1,9 +1,11 @@
-import LandingPage from "./components/LandingPage";
-
+import AuthCallBack from "./commonComponent/AuthCallBack";
+import UserContextProvider from "./contextApi/UserContextProvider";
 function App() {
   return (
     <div className="App">
-      <LandingPage />
+      <UserContextProvider>
+        <AuthCallBack />
+      </UserContextProvider>
     </div>
   );
 }

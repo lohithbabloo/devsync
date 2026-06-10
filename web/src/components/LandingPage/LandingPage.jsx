@@ -1,4 +1,4 @@
-import baseUrl from "../commonComponent/ApiClient";
+import baseUrl from "../../commonComponent/ApiClient";
 import CTA from "./CTA";
 import Features from "./Features";
 import Footer from "./Footer";
@@ -7,9 +7,11 @@ import HowItWorks from "./HowItWorks";
 import Navbar from "./Navbar";
 
 function LandingPage() {
+  // const navigate = useNavigate();
   async function handleGetStarted() {
-    const response = await baseUrl.get("api/v1/user/me");
-    console.log(response);
+    try {
+      window.location.href = "http://localhost:3000";
+    } catch (error) {}
   }
 
   return (
