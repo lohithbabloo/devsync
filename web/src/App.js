@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthCallBack from "./commonComponent/AuthCallBack";
 import UserContextProvider from "./contextApi/UserContextProvider";
 import Commit from "./commonComponent/Commit";
+import ProtectedRoute from "./commonComponent/ProtectedRoute";
 function App() {
   return (
     <div className="App">
@@ -9,7 +10,14 @@ function App() {
         <UserContextProvider>
           <Routes>
             <Route path="/" element={<AuthCallBack />} />
-            <Route path="/:repoName/commits" element={<Commit />} />
+            <Route
+              path="/:repoName/commits"
+              element={
+                <ProtectedRoute>
+                  <Commit />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </UserContextProvider>
       </BrowserRouter>

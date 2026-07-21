@@ -8,7 +8,9 @@ function UserContextProvider({ children }) {
     try {
       const response = await baseUrl.get("api/v1/user/me");
       setUser(response.data);
-    } catch (e) {}
+    } catch (e) {
+      setUser(null);
+    }
     // console.log(response);
     setLoading(false);
   };

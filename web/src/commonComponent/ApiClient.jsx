@@ -22,6 +22,7 @@ baseUrl.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // window.location.href = "http://localhost:3001/";
     }
+    return Promise.reject(error);
   },
 );
 
