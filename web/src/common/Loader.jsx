@@ -1,7 +1,7 @@
 function Loader() {
   return (
-    <div>
-      <p>Loading......</p>
+    <div className="p-4 text-white">
+      <p>Loading...</p>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import axios from "axios";
+
 const baseUrl = axios.create({
   baseURL: "http://localhost:8080/",
   withCredentials: true,
-  header: {
+  headers: {
     "Content-Type": "application/json",
   },
 });
@@ -12,7 +13,11 @@ baseUrl.interceptors.request.use((request) => {
     .split("; ")
     .find((row) => row.startsWith("XSRF-TOKEN="))
     ?.split("=")[1];
-  request.headers["X-XSRF-TOKEN"] = xsrfToken;
+
+  if (xsrfToken) {
+    request.headers["X-XSRF-TOKEN"] = xsrfToken;
+  }
+
   return request;
 });
 

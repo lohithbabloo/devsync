@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Contextprovider } from "./ContextProvider";
-import baseUrl from "../commonComponent/ApiClient";
+import baseUrl from "../app/ApiClient";
 function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
