@@ -7,14 +7,16 @@ function LandingPage() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-slate-950 text-slate-100 p-8">
-      <h1 className="mb-4 text-3xl font-bold">Welcome to DevSync</h1>
-      <p className="mb-6 max-w-xl text-center text-slate-300">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-slate-950 p-8 text-slate-100">
+      <h1 className="mb-3 text-3xl font-semibold tracking-tight">
+        Welcome to DevSync
+      </h1>
+      <p className="mb-6 max-w-md text-center text-sm text-slate-400">
         DevSync helps you visualise repository commits and analytics.
       </p>
-      <div className="flex gap-3">
-        <Button onClick={handleGetStarted}>Get started</Button>
-      </div>
+      <Button variant="primary" onClick={handleGetStarted}>
+        Get started
+      </Button>
     </main>
   );
 }
