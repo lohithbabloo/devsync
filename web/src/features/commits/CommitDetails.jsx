@@ -32,22 +32,30 @@ function CommitDetails() {
     }
   }, []);
 
-  const generateCommitSummary = useCallback(async () => {
+  const generateCommitSummary = async () => {
     setSummaryLoading("loading");
     try {
+      const fileChanges =
+        commitDetails?.files?.map((file) => ({
+          fileName: file.filename,
+          fileDiff: file.patch,
+        })) ?? [];
+
       const postbody = {
         model: "claude-sonnet-4-5",
-        userPrompt: commitDetails.commit?.message,
+        userPrompt: commitDetails?.commit?.message,
+        fileChanges,
       };
+
       const response = await aiBaseUrl.post("/commit-summary", postbody);
-      console.log(response.data.commitSummary);
+
       setCommitSummary(response.data.commitSummary);
       setSummaryLoading("ready");
     } catch (error) {
-      console.error("Commit summary generation failed");
+      console.error("Commit summary generation failed", error);
       setSummaryLoading("error");
     }
-  });
+  };
 
   useEffect(() => {
     if (repoName && sha) {
