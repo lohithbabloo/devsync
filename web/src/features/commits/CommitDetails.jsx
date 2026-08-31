@@ -21,9 +21,9 @@ function CommitDetails() {
   const loadCommitDetails = useCallback(async (name, commitSha) => {
     setStatus("loading");
     try {
-      const response = await baseUrl.get(
-        `/api/v1/github/${name}/commits/${commitSha}`,
-      );
+      const response = await baseUrl.post(`/api/v1/github/${name}/commits`, [
+        commitSha,
+      ]);
       setCommitDetails(response.data?.[0] ?? null);
       setStatus("ready");
     } catch (error) {
@@ -47,7 +47,7 @@ function CommitDetails() {
         fileChanges,
       };
 
-      const response = await aiBaseUrl.post("/commit-summary", postbody);
+      const response = await aiBaseUrl.post("/commit/summary", postbody);
 
       setCommitSummary(response.data.commitSummary);
       setSummaryLoading("ready");

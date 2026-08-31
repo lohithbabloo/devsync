@@ -14,7 +14,6 @@ function CommitPage() {
   const [commits, setCommits] = useState([]);
   const [selectedCommits, setSelectedCommits] = useState(new Set());
   const [status, setStatus] = useState("loading");
-  // const [commitDetials, setCommitDetails] = useState([]);
 
   const navigate = useNavigate();
 
@@ -75,10 +74,6 @@ function CommitPage() {
     } catch (e) {
       console.log("Exception occured in commitpage.jsx", e);
     }
-    // TODO:
-    // Send selected commits / SHAs to backend
-    // navigate to summary generation flow
-    //so now selected sha will be send to the authify backend and that response will be fed to ai servic
   };
 
   const generateSummaryForCommits = async (commitDetails) => {
