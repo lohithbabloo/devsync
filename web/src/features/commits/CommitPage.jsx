@@ -68,7 +68,6 @@ function CommitPage() {
         `/api/v1/github/${repoName}/commits`,
         shaValues,
       );
-      console.log(response.data);
       const commitDetails = response.data;
       generateSummaryForCommits(commitDetails);
     } catch (e) {
@@ -157,7 +156,9 @@ function CommitPage() {
 
               <button
                 type="button"
-                disabled={selectedCommits.size === 0}
+                disabled={
+                  selectedCommits.size === 0 || selectedCommits.size > 5
+                }
                 onClick={handleGenerateSummary}
                 className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
               >
