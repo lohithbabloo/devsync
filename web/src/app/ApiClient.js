@@ -8,25 +8,49 @@ const baseUrl = axios.create({
   },
 });
 
-baseUrl.interceptors.request.use((request) => {
+baseUrl.interceptors.request.use((config) => {
+  config.headers = config.headers || {};
+
+  const requestId = config.headers["X-Request-ID"] || crypto.randomUUID();
+
+  config.headers["X-Request-ID"] = requestId;
+
+  // CSRF token
   const xsrfToken = document.cookie
     .split("; ")
     .find((row) => row.startsWith("XSRF-TOKEN="))
     ?.split("=")[1];
 
   if (xsrfToken) {
-    request.headers["X-XSRF-TOKEN"] = xsrfToken;
+    config.headers["X-XSRF-TOKEN"] = decodeURIComponent(xsrfToken);
   }
 
-  return request;
+  return config;
 });
 
 baseUrl.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const requestId = response.headers["x-request-id"];
+
+    console.info("API request successful", {
+      requestId,
+      url: response.config.url,
+      status: response.status,
+    });
+
+    return response;
+  },
+
   (error) => {
-    if (error.response && error.response.status === 401) {
-      // window.location.href = "http://localhost:3001/";
-    }
+    const requestId = error.config?.headers?.["X-Request-ID"];
+
+    console.error("API request failed", {
+      requestId,
+      url: error.config?.url,
+      status: error.response?.status,
+      message: error.message,
+    });
+
     return Promise.reject(error);
   },
 );
